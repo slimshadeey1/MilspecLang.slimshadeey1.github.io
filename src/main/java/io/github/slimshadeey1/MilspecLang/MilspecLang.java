@@ -79,7 +79,11 @@ public class MilspecLang extends JavaPlugin implements Listener {
             for (String forbidden : forbiddenlist) {
                 Integer id = config.getWords().indexOf(forbidden);
                 ev.getPlayer().sendMessage(config.getMessage(id));
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), config.getCommand(id)+" "+ev.getPlayer());
+                String player = ev.getPlayer().getName();
+                String playerconf = "<player>";
+                String commandplay = config.getCommand(id).replaceAll(playerconf, player);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandplay);
+                ev.getPlayer().sendMessage(commandplay);
                 ev.setMessage(config.chatmessage());
                 //sends message in configs
                 //ev.setCancelled(true);

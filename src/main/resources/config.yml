@@ -28,4 +28,4 @@ exception:
 ChatMessage: I <3 MilSpec!
 
 CustomWordActions:
-- lag: Saying lag is annoying. [kill]
+- lag-Saying lag is annoying-kick <player>

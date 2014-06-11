@@ -26,3 +26,6 @@ exception:
 - glass
 
 ChatMessage: I <3 MilSpec!
+
+CustomWordActions:
+- lag: Saying lag is annoying. [kill]

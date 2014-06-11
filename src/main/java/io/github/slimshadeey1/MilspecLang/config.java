@@ -14,7 +14,8 @@ public class config {
     static FileConfiguration files = MIG.getConfig();
     static List<String> swears = files.getStringList("swears");
     static List<String> forbidden1 = files.getStringList("forbiddenGroup1");
-    static Integer numberofgroups = files.getInt("numberofgroups");
+    static List<String> customset = files.getStringList("CustomWordActions");
+    //    static Integer numberofgroups = files.getInt("numberofgroups");
     static List<String> exceptions = files.getStringList("exception");
     static Boolean disabled = files.getBoolean("DisableSwearing");
     static Boolean command = files.getBoolean("commandChecking");
@@ -27,41 +28,41 @@ public class config {
         //save files
         MIG.saveConfig();
     }
-    public static List<String> getGroupnames() {
-        ArrayList<String> groupa = new ArrayList<String>();
-        for (int a = 1; a < getNumberofgroups() + 1; a++) {
-            groupa.add("groupnumber" + Integer.toString(a));
-        }
-        return groupa;
-    }
-    public static void addgroup() {
-        for(String group : getGroupnames()) {
-            MilspecLang.wordgroupconfigs.createSection(group.replace("'", ""));
-        }
-        MilspecLang.saveNewConfig();
-    }
-    public static List<String> addmessagegroup() {
-        ArrayList<String> groupa = new ArrayList<String>();
-        for (int a = 1; a < getNumberofgroups() + 1; a++) {
-            groupa.add("groupmessage" + Integer.toString(a));
-        }
-        for(String group : groupa) {
-            MilspecLang.wordgroupconfigs.createSection(group.replace("'", ""));
-        }
-        MilspecLang.saveNewConfig();
-        return groupa;
-    }
-    public static List<String> addcommandgroup() {
-        ArrayList<String> groupa = new ArrayList<String>();
-        for (int a = 1; a < getNumberofgroups() + 1; a++) {
-            groupa.add("groupcommand" + Integer.toString(a));
-        }
-        for(String group : groupa) {
-            MilspecLang.wordgroupconfigs.createSection(group.replace("'", ""));
-        }
-        MilspecLang.saveNewConfig();
-        return groupa;
-    }
+//    public static List<String> getGroupnames() {
+//        ArrayList<String> groupa = new ArrayList<String>();
+//        for (int a = 1; a < getNumberofgroups() + 1; a++) {
+//            groupa.add("groupnumber" + Integer.toString(a));
+//        }
+//        return groupa;
+//    }
+//    public static void addgroup() {
+//        for(String group : getGroupnames()) {
+//            MilspecLang.wordgroupconfigs.createSection(group.replace("'", ""));
+//        }
+//        MilspecLang.saveNewConfig();
+//    }
+//    public static List<String> addmessagegroup() {
+//        ArrayList<String> groupa = new ArrayList<String>();
+//        for (int a = 1; a < getNumberofgroups() + 1; a++) {
+//            groupa.add("groupmessage" + Integer.toString(a));
+//        }
+//        for(String group : groupa) {
+//            MilspecLang.wordgroupconfigs.createSection(group.replace("'", ""));
+//        }
+//        MilspecLang.saveNewConfig();
+//        return groupa;
+//    }
+//    public static List<String> addcommandgroup() {
+//        ArrayList<String> groupa = new ArrayList<String>();
+//        for (int a = 1; a < getNumberofgroups() + 1; a++) {
+//            groupa.add("groupcommand" + Integer.toString(a));
+//        }
+//        for(String group : groupa) {
+//            MilspecLang.wordgroupconfigs.createSection(group.replace("'", ""));
+//        }
+//        MilspecLang.saveNewConfig();
+//        return groupa;
+//    }
 
 
     public void get() {
@@ -152,10 +153,13 @@ public class config {
     public static List<String> getForbiddenlist() {
         return forbidden1;
     }
-
-    public static Integer getNumberofgroups() {
-        return numberofgroups;
+    public static List<String> getCustomset() {
+        return customset;
     }
+
+//    public static Integer getNumberofgroups() {
+//        return numberofgroups;
+//    }
 
     public static String chatmessage() {
         return message;
@@ -164,7 +168,17 @@ public class config {
     public static boolean swearisdisabled() {
         return disabled;
     }
-
+    public static List<String> getWords() {
+        return WordGroups.words;
+    }
+    public static String getMessage(Integer i) {
+        String message = WordGroups.messages.get(i).toString();
+        return message;
+    }
+    public static String getCommand(Integer i) {
+        String commandexec = WordGroups.commandexec.get(i).toString();
+        return commandexec;
+    }
     public static boolean commandenabled() {
         return command;
     }

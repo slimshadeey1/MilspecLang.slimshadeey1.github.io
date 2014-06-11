@@ -72,7 +72,16 @@ public class Wordcatch {
                 }
             }
         }
-        forbiddenlist.add(WordGroups.finalgroupID(finalwords));
+        for(String forbidden: config.getWords()){ //checking for swears
+            for(String swear :finalwords){
+                if(swear.contains(forbidden)){
+                    // return true, as word is in the swear list
+                    if(!(forbiddenlist.contains(forbidden))){
+                        forbiddenlist.add(forbidden);//returns what swear word was used
+                    }
+                }
+            }
+        }
         if(forbiddenlist.isEmpty())return null;
         return forbiddenlist;
     }

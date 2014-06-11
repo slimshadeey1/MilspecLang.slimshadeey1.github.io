@@ -27,34 +27,35 @@ public class MilspecLang extends JavaPlugin implements Listener {
     public static Plugin getPlugin() {
         return plugin;
     } //to allow access to plugin configs from other classes
-    public static File wordgroups;//name of file
-    public static FileConfiguration wordgroupconfigs;
+    //public static File wordgroup;//name of file
+    //public static FileConfiguration wordgroupconfigs;
     @Override
     public void onEnable() {
         //getLogger().info(config.getNumberofgroups());
         plugin = this; //DONT PUT FUCKIN SHIT BEFORE THIS
         //register events in this class
-        wordgroups = new File(getDataFolder(), "wordgroups.yml"); // set the file location
-        wordgroupconfigs = YamlConfiguration.loadConfiguration(wordgroups); // this will give you all the functions such as .getInt, getString ect..
+        //wordgroup = new File(getDataFolder(), "wordgroupconfigs.yml"); // set the file location
+        //wordgroupconfigs = YamlConfiguration.loadConfiguration(wordgroup); // this will give you all the functions such as .getInt, getString ect..
         getServer().getPluginManager().registerEvents(this, this);
         config.enable();
         //set swear command to the class commands
         getCommand("language").setExecutor(new Commands());
-        getLogger().info("Number of Word groups currently enabled: "+config.getNumberofgroups());
+        getLogger().info("Raw debug = "+config.getWords().toString());
         // print to the console that the plugin in enabled
         getLogger().info("[MilspecLang] has been Enabled!");
+        WordGroups.seperator();
         //getLogger().info(config.getGroups());
-        config.addgroup();
-        config.addmessagegroup();
-        config.addcommandgroup();
+        //config.addgroup();
+        //config.addmessagegroup();
+        //config.addcommandgroup();
     }
-    public static void saveNewConfig(){
-        try{
-        wordgroupconfigs.save(wordgroups);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+    //public static void saveNewConfig(){
+    //    try{
+    //    wordgroupconfigs.save(wordgroup);
+    //    }catch(Exception e){
+    //        e.printStackTrace();
+    //    }
+//    }
 
     // lowest event priority to stop lagg
     @EventHandler(priority = EventPriority.NORMAL) //This is the standard chat checker
@@ -69,13 +70,16 @@ public class MilspecLang extends JavaPlugin implements Listener {
                 ev.getPlayer().sendMessage(ChatColor.RED+"NO BADWORDS");
                 // message contains a swear
                 // cancel event
-                ev.setCancelled(true);
+                //ev.setCancelled(true);
+                ev.getPlayer().sendMessage(config.getWords().toString());
             }
         }
         List<String> forbiddenlist = Wordcatch.isforbidden(ev.getMessage());
         if (forbiddenlist != null) {
             for (String forbidden : forbiddenlist) {
-                //ev.getPlayer().sendMessage(forbidden);
+                Integer id = config.getWords().indexOf(forbidden);
+                ev.getPlayer().sendMessage(config.getMessage(id));
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), config.getCommand(id)+" "+ev.getPlayer());
                 ev.setMessage(config.chatmessage());
                 //sends message in configs
                 //ev.setCancelled(true);

@@ -80,7 +80,6 @@ public class config {
         MIG.saveConfig();
         return true;
     }
-
     public static boolean addexempt(String exempt) {
         for (String s : exceptions) {
             if (exempt.equalsIgnoreCase(s)) {

@@ -1,0 +1,20 @@
+name: MilspecLang
+main: io.github.slimshadeey1.MilspecLang.MilspecLang
+version: 1
+commands:
+   test:
+      description: This is a demo command.
+      usage: /<command>
+      permission: ben.test
+      permission-message: You don't have <permission>
+   language:
+      description: Main command for Milspec Language filter
+      usage: /language
+Permissions:
+  ben.test:
+    default: true
+  language.admin:
+    default: op
+  language.forbidden:
+    default: op
+

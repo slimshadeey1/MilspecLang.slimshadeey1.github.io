@@ -1,0 +1,28 @@
+aggressive: true
+numberofgroups: 5
+DisableSwearing: false
+commandChecking: true
+swears:
+- fuck
+- shit
+- crap
+- wank
+- cunt
+- crap
+- ass
+forbiddenGroup1:
+- lag
+Group1Message:
+
+forbiddenGroup2:
+
+Group2Message:
+
+forbiddenGroup3:
+
+Group3Message:
+
+exception:
+- glass
+
+ChatMessage: I <3 MilSpec!

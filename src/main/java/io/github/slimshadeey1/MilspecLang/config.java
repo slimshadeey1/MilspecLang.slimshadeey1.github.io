@@ -80,6 +80,61 @@ public class config {
         MIG.saveConfig();
         return true;
     }
+    public static List<String> getCustomlist(){
+        List<String> customsetlist = new ArrayList<String>();
+        for(String a : getWords()) {
+            String setting = "- "+WordGroups.words.indexOf(a)+" "+a+"-"+WordGroups.messages.get(WordGroups.words.indexOf(a))+"-"+WordGroups.commandexec.get(WordGroups.words.indexOf(a));
+            customsetlist.add(setting);
+        }
+        return customsetlist;
+    }
+    public static boolean editcustommessage(Integer id, String newword){
+        WordGroups.messages.set(id, newword);
+        refreshconfig();
+        return true;
+    }
+    public static boolean editcustomcommand(Integer id, String newword){
+        WordGroups.commandexec.set(id, newword);
+        refreshconfig();
+        return true;
+    }
+    public static boolean addcustomset(String word, String message, String command) {
+        for (String s : getWords()) {
+            if (word.equalsIgnoreCase(s)) {
+                return false;
+            }
+        }
+        WordGroups.words.add(word);
+        WordGroups.messages.add(message);
+        WordGroups.messages.add(command);
+        String createconf = " " + word + "-" + message + "-" + command;
+        files.set("CustomWordActions", createconf);
+        MIG.saveConfig();
+        return true;
+    }
+    public static void refreshconfig() {
+        for(String a : getWords()) {
+            String setting = " "+a+"-"+WordGroups.messages.get(WordGroups.words.indexOf(a))+"-"+WordGroups.commandexec.get(WordGroups.words.indexOf(a));
+            files.set("CustomWordActions", setting.replaceAll("]", ""));
+        }
+    }
+    public static boolean removecustomset(String word) {
+        for (String s : getWords()) {
+            if (word.equalsIgnoreCase(s)) {
+                Integer id = config.getWords().indexOf(word);
+                WordGroups.words.remove(word);
+                WordGroups.messages.remove(id);
+                WordGroups.commandexec.remove(id);
+                for(String a : getWords()) {
+                    String setting = " "+a+"-"+WordGroups.messages.get(WordGroups.words.indexOf(a))+"-"+WordGroups.commandexec.get(WordGroups.words.indexOf(a));
+                    files.set("CustomWordActions", setting.replaceAll("]", ""));
+                }
+                MIG.saveConfig();
+                return true;
+            }
+        }
+        return false;
+    }
     public static boolean addexempt(String exempt) {
         for (String s : exceptions) {
             if (exempt.equalsIgnoreCase(s)) {

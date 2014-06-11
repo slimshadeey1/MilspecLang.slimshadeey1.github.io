@@ -41,9 +41,4 @@ public class WordGroups {
             commandexec.add(parts[2].replace("[","").replace("[",""));
         }
     }
-
-    public static ArrayList[] wordfinder;{
-
-
-    }
 }

@@ -27,35 +27,19 @@ public class MilspecLang extends JavaPlugin implements Listener {
     public static Plugin getPlugin() {
         return plugin;
     } //to allow access to plugin configs from other classes
-    //public static File wordgroup;//name of file
-    //public static FileConfiguration wordgroupconfigs;
     @Override
     public void onEnable() {
-        //getLogger().info(config.getNumberofgroups());
         plugin = this; //DONT PUT FUCKIN SHIT BEFORE THIS
-        //register events in this class
-        //wordgroup = new File(getDataFolder(), "wordgroupconfigs.yml"); // set the file location
-        //wordgroupconfigs = YamlConfiguration.loadConfiguration(wordgroup); // this will give you all the functions such as .getInt, getString ect..
         getServer().getPluginManager().registerEvents(this, this);
         config.enable();
-        //set swear command to the class commands
-        getCommand("language").setExecutor(new Commands());
-        getLogger().info("Raw debug = "+config.getWords().toString());
-        // print to the console that the plugin in enabled
-        getLogger().info("[MilspecLang] has been Enabled!");
         WordGroups.seperator();
-        //getLogger().info(config.getGroups());
-        //config.addgroup();
-        //config.addmessagegroup();
-        //config.addcommandgroup();
+        getCommand("language").setExecutor(new Commands());
+        getLogger().info("Words on custom: "+WordGroups.words);
+        getLogger().info("Messages on custom: "+WordGroups.messages);
+        getLogger().info("Commands on custom: "+WordGroups.commandexec);
+
+        getLogger().info("[MilspecLang] has been Enabled!");
     }
-    //public static void saveNewConfig(){
-    //    try{
-    //    wordgroupconfigs.save(wordgroup);
-    //    }catch(Exception e){
-    //        e.printStackTrace();
-    //    }
-//    }
 
     // lowest event priority to stop lagg
     @EventHandler(priority = EventPriority.NORMAL) //This is the standard chat checker
@@ -70,8 +54,9 @@ public class MilspecLang extends JavaPlugin implements Listener {
                 ev.getPlayer().sendMessage(ChatColor.RED+"NO BADWORDS");
                 // message contains a swear
                 // cancel event
-                //ev.setCancelled(true);
+                ev.setMessage(config.chatmessage());
                 ev.getPlayer().sendMessage(config.getWords().toString());
+                //ev.getPlayer().sendMessage(config.getCustomset().toString());
             }
         }
         List<String> forbiddenlist = Wordcatch.isforbidden(ev.getMessage());
@@ -83,7 +68,7 @@ public class MilspecLang extends JavaPlugin implements Listener {
                 String playerconf = "<player>";
                 String commandplay = config.getCommand(id).replaceAll(playerconf, player).replace("]", "");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandplay);
-                ev.getPlayer().sendMessage(commandplay);
+                ev.getPlayer().sendMessage(config.getMessage(id));
                 ev.setMessage(config.chatmessage());
                 //sends message in configs
                 //ev.setCancelled(true);
@@ -113,11 +98,15 @@ public class MilspecLang extends JavaPlugin implements Listener {
             }
         }
         List<String> forbiddenlist = Wordcatch.isforbidden(ev.getMessage());
-        if (ev.getPlayer().hasPermission("language.forbidden")) return;
         if (forbiddenlist != null) {
             for (String forbidden : forbiddenlist) {
-                ev.getPlayer().sendMessage(ChatColor.RED+"Forbidden word: " + forbidden);
-                //ev.setMessage(config.chatmessage());
+                Integer id = config.getWords().indexOf(forbidden);
+                ev.getPlayer().sendMessage(config.getMessage(id));
+                String player = ev.getPlayer().getName().replace("]", "");
+                String playerconf = "<player>";
+                String commandplay = config.getCommand(id).replaceAll(playerconf, player).replace("]", "");
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandplay);
+                ev.getPlayer().sendMessage(config.getMessage(id));
                 ev.setCancelled(true);
             }
         }

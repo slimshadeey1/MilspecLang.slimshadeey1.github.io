@@ -74,7 +74,7 @@ public class Wordcatch {
         }
         for(String forbidden: config.getWords()){ //checking for swears
             for(String swear :finalwords){
-                if(swear.contains(forbidden)){
+                if(swear.toLowerCase().contains(forbidden)){
                     // return true, as word is in the swear list
                     if(!(forbiddenlist.contains(forbidden))){
                         forbiddenlist.add(forbidden);//returns what swear word was used

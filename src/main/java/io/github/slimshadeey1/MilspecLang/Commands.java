@@ -28,11 +28,9 @@ public class Commands  implements CommandExecutor {
                         sender.sendMessage(ChatColor.YELLOW+"/language rexempt [word] - "+ChatColor.WHITE+"removes a word from the exemption list.");
                         sender.sendMessage(ChatColor.YELLOW+"/language list - "+ChatColor.WHITE+"shows the swear list.");
                         sender.sendMessage(ChatColor.YELLOW+"/language elist - "+ChatColor.WHITE+"shows the exception list.");
-                        sender.sendMessage(ChatColor.YELLOW+"/language addcustomword [word] [message] [Command]-"+ChatColor.WHITE+"Adds word to custom configuration with messages and commands");
-                        sender.sendMessage(ChatColor.YELLOW+"/language getcustomlist -"+ChatColor.WHITE+"Lists all custom configs and displays ID's");
-                        sender.sendMessage(ChatColor.YELLOW+"/language removecustomword [word] -"+ChatColor.WHITE+"removes word from custom configuration");
-                        sender.sendMessage(ChatColor.YELLOW+"/language editcustommessage [id] [message] -"+ChatColor.WHITE+"Edits group message for word, but requires ID (Obtained via getcustomlist)");
-                        sender.sendMessage(ChatColor.YELLOW+"/language editcustomcommand [id] [command] -"+ChatColor.WHITE+"Edits group command for word, but requires ID (Obtained via getcustomlist)");
+                        sender.sendMessage(ChatColor.YELLOW+"/language addword [word] [message] [Command]-"+ChatColor.WHITE+"Adds word to custom configuration with messages and commands");
+                        sender.sendMessage(ChatColor.YELLOW+"/language getlist -"+ChatColor.WHITE+"Lists all custom configs and displays ID's");
+                        sender.sendMessage(ChatColor.YELLOW+"/language removeword [id] -"+ChatColor.WHITE+"removes word from custom configuration");
 
                     }
                     sender.sendMessage(line);
@@ -41,13 +39,19 @@ public class Commands  implements CommandExecutor {
 
                 if(args.length >= 1){
                     //Custom set start
-                    if(args[0].equalsIgnoreCase("addcustomword")){
-                        String newcustom = args.toString().replace("addcustomword", "");
+                    if(args[0].equalsIgnoreCase("addword")){
                         if(sender.hasPermission("language.admin")) {
-                            sender.sendMessage(linetag);
-                            String[] custcom = newcustom.split("/");
-                            config.addcustomset(custcom[0], custcom[1], custcom[2]);
-                                sender.sendMessage(line);
+                            //sender.sendMessage(linetag);
+                            String newwords = "";
+                            for (Integer i = 0; i < args.length; i++) {
+                                String arg = args[i]+" ";
+                                newwords = newwords+arg;
+                            }
+                            String commandnew = newwords.split("/")[1];//works perfectly
+                            String messagenew = newwords.split("/")[0].split("message:")[1];
+                            String newword = newwords.split("/")[0].split("message:")[0].replaceAll("addcustomword", "");
+                            sender.sendMessage("New Word: "+newword+" New Message: "+messagenew+" New Command: "+commandnew);
+                            config.addcustomset(newword, messagenew, commandnew);
                                 return true;
 
                             }else{
@@ -56,12 +60,13 @@ public class Commands  implements CommandExecutor {
                             }
                         }
                     //------------------------------------------------------------------------------------------------------
-                    if(args[0].equalsIgnoreCase("getcustomlist")){
+                    if(args[0].equalsIgnoreCase("getlist")){
                         if(args.length == 1){
                             if(sender.hasPermission("language.admin")){
                                 sender.sendMessage(linetag);
-                                for (String s : config.getCustomlist()){
-                                    sender.sendMessage("-"+s);
+                                config.getCustomset();
+                                for (String s : config.getCustomset()){
+                                    sender.sendMessage("-"+config.getCustomset().indexOf(s)+" "+s);
                                 }
                                 sender.sendMessage(line);
                                 return true;
@@ -72,10 +77,10 @@ public class Commands  implements CommandExecutor {
                         }
                     }
                     //--------------------------------------------------------------------------------------------------
-                    if(args[0].equalsIgnoreCase("removecustomword")){
+                    if(args[0].equalsIgnoreCase("removeword")){
                             if(sender.hasPermission("language.admin")){
                                 sender.sendMessage(linetag);
-                                config.removecustomset(args[1]);
+                                config.removecustomset(Integer.parseInt(args[1]));
                                 sender.sendMessage(line);
                                 return true;
                             }else{
@@ -84,28 +89,39 @@ public class Commands  implements CommandExecutor {
                             }
                     }
                     //--------------------------------------------------------------------------------------------------
-                    if(args[0].equalsIgnoreCase("editcustommessage")){
-                            if(sender.hasPermission("language.admin")){
-                                sender.sendMessage(linetag);
-                                config.editcustommessage(Integer.parseInt(args[1]), args[2]);
-                                sender.sendMessage(line);
-                                return true;
-                            }else{
-                                sender.sendMessage(ChatColor.RED+"You don't have permission");
-                                return true;
-                            }
-                    }
-                    if(args[0].equalsIgnoreCase("list")){
-                            if(sender.hasPermission("language.admin")){
-                                sender.sendMessage(linetag);
-                                config.editcustomcommand(Integer.parseInt(args[1]), args[2]);
-                                sender.sendMessage(line);
-                                return true;
-                            }else{
-                                sender.sendMessage(ChatColor.RED+"You don't have permission");
-                                return true;
-                            }
-                    }
+//                    if(args[0].equalsIgnoreCase("editcustommessage")){
+//                            if(sender.hasPermission("language.admin")){
+//                                sender.sendMessage(linetag);
+//                                String newwords = "";
+//                                for (Integer i = 0; i < args.length; i++) {
+//                                    String arg = args[i]+" ";
+//                                    newwords = newwords+arg;
+//                                }
+//                                Integer id = Integer.parseInt(newwords.replaceAll("editcustommessage", "").split(" ")[0]);//works perfectly
+//                                String word = newwords.replaceAll("editcustommessage", "").split(" ")[1];
+//                                config.editcustommessage(id, word);
+//                                return true;
+//                            }else{
+//                                sender.sendMessage(ChatColor.RED+"You don't have permission");
+//                                return true;
+//                            }
+//                    }
+//                    if(args[0].equalsIgnoreCase("editcustomcommand")){
+//                            if(sender.hasPermission("language.admin")){
+//                                String newwords = "";
+//                                for (Integer i = 0; i < args.length; i++) {
+//                                    String arg = args[i]+" ";
+//                                    newwords = newwords+arg;
+//                                }
+//                                Integer id = Integer.parseInt(newwords.replaceAll("editcustomcommand", "").split(" ")[0]);//works perfectly
+//                                String word = newwords.replaceAll("editcustomcommand", "").split(" ")[1];
+//                                config.editcustomcommand(id, word);
+//                                return true;
+//                            }else{
+//                                sender.sendMessage(ChatColor.RED+"You don't have permission");
+//                                return true;
+//                            }
+//                    }
                     //=================================================================================================
                     if(args[0].equalsIgnoreCase("list")){
                         if(args.length == 1){

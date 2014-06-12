@@ -28,7 +28,7 @@ public class Commands  implements CommandExecutor {
                         sender.sendMessage(ChatColor.YELLOW+"/language rexempt [word] - "+ChatColor.WHITE+"removes a word from the exemption list.");
                         sender.sendMessage(ChatColor.YELLOW+"/language list - "+ChatColor.WHITE+"shows the swear list.");
                         sender.sendMessage(ChatColor.YELLOW+"/language elist - "+ChatColor.WHITE+"shows the exception list.");
-                        sender.sendMessage(ChatColor.YELLOW+"/language addword [word] [message] [Command]-"+ChatColor.WHITE+"Adds word to custom configuration with messages and commands");
+                        sender.sendMessage(ChatColor.YELLOW+"/language addword [word] message:[message] [Command]-"+ChatColor.WHITE+"Adds word to custom configuration with messages and commands");
                         sender.sendMessage(ChatColor.YELLOW+"/language getlist -"+ChatColor.WHITE+"Lists all custom configs and displays ID's");
                         sender.sendMessage(ChatColor.YELLOW+"/language removeword [id] -"+ChatColor.WHITE+"removes word from custom configuration");
 

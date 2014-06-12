@@ -55,7 +55,7 @@ public class MilspecLang extends JavaPlugin implements Listener {
                 // message contains a swear
                 // cancel event
                 ev.setMessage(config.chatmessage());
-                ev.getPlayer().sendMessage(config.getWords().toString());
+                //ev.getPlayer().sendMessage(config.getWords().toString());
                 //ev.getPlayer().sendMessage(config.getCustomset().toString());
             }
         }

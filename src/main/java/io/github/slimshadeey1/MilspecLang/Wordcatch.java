@@ -93,6 +93,9 @@ public class Wordcatch {
             if (InetAddressValidator.getInstance().isValid(address)){
                 addresslist.add(address);
             }
+            if (DomainValidator.getInstance().isValid(address)){
+                addresslist.add(address);
+            }
         }
         return addresslist;
     }

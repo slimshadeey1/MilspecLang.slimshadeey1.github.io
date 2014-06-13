@@ -31,6 +31,10 @@ public class Commands  implements CommandExecutor {
                         sender.sendMessage(ChatColor.YELLOW+"/language addword [word] message:[message] [Command]-"+ChatColor.WHITE+"Adds word to custom configuration with messages and commands");
                         sender.sendMessage(ChatColor.YELLOW+"/language getlist -"+ChatColor.WHITE+"Lists all custom configs and displays ID's");
                         sender.sendMessage(ChatColor.YELLOW+"/language removeword [id] -"+ChatColor.WHITE+"removes word from custom configuration");
+                        sender.sendMessage(ChatColor.YELLOW+"/language setad [playername] [number-of-attempts] -"+ChatColor.WHITE+"Sets a new count of attempts for a player");
+                        sender.sendMessage(ChatColor.YELLOW+"/language removead [playername] -"+ChatColor.WHITE+"removes a playe completely from ad database");
+                        sender.sendMessage(ChatColor.YELLOW+"/language addad [playername] [number-of-attempts]-"+ChatColor.WHITE+"adds an attempt to a players attempt count");
+                        sender.sendMessage(ChatColor.YELLOW+"/language listad -"+ChatColor.WHITE+"Lists all players and attempts made at spamming");
 
                     }
                     sender.sendMessage(line);
@@ -39,6 +43,59 @@ public class Commands  implements CommandExecutor {
 
                 if(args.length >= 1){
                     //Custom set start
+                    //-------------------------------------------------------------------------------------------------------------------------
+                    if(args[0].equalsIgnoreCase("setad")){
+                        if(sender.hasPermission("language.admin")) {
+                            //sender.sendMessage(linetag);
+                            sender.sendMessage(ChatColor.RED+"Changing "+args[1]+" on advertisers list.");
+                            config.setad(args[1], Integer.parseInt(args[2]));
+                            return true;
+
+                        }else{
+                            sender.sendMessage(ChatColor.RED+"You don't have permission");
+                            return true;
+                        }
+                    }
+                    if(args[0].equalsIgnoreCase("removead")){
+                        if(sender.hasPermission("language.admin")) {
+                            //sender.sendMessage(linetag);
+                            sender.sendMessage(ChatColor.RED+"Removing "+args[1]+" from advertisers list.");
+                            config.removead(args[1]);
+                            return true;
+
+                        }else{
+                            sender.sendMessage(ChatColor.RED+"You don't have permission");
+                            return true;
+                        }
+                    }
+                    if(args[0].equalsIgnoreCase("addad")){
+                        if(sender.hasPermission("language.admin")) {
+                            //sender.sendMessage(linetag);
+                            sender.sendMessage(ChatColor.RED+"Adding Strike to "+args[1]+" on advertisers list.");
+                            config.addAd(args[1], Integer.parseInt(args[2]));
+                            return true;
+
+                        }else{
+                            sender.sendMessage(ChatColor.RED+"You don't have permission");
+                            return true;
+                        }
+                    }
+                    if(args[0].equalsIgnoreCase("listad")){
+                        if(sender.hasPermission("language.admin")) {
+                            //sender.sendMessage(linetag);
+                            sender.sendMessage(ChatColor.RED+"Advertisers List");
+                            for (String name: config.addresses) {
+                                Integer number = config.advertiserdbin.get(name.split("-")[0].trim());
+                                sender.sendMessage(ChatColor.RED+"Name: "+ChatColor.YELLOW+name.split("-")[0].trim()+ChatColor.RED+" Attempts: "+ChatColor.YELLOW+number);
+                            }
+                            return true;
+
+                        }else{
+                            sender.sendMessage(ChatColor.RED+"You don't have permission");
+                            return true;
+                        }
+                    }
+                    //-------------------------------------------------------------------------------------------------------------------------
                     if(args[0].equalsIgnoreCase("addword")){
                         if(sender.hasPermission("language.admin")) {
                             //sender.sendMessage(linetag);

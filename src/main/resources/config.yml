@@ -15,4 +15,5 @@ CustomWordActions:
 AdvertiserPunishment:
 - broadcast I hate you <player>
 Advertisers:
-- debug-8.8.8.8
+- debug-3
+- test-7

@@ -39,13 +39,14 @@ public class MilspecLang extends JavaPlugin implements Listener {
         plugin = this; //DONT PUT FUCKIN SHIT BEFORE THIS
         getServer().getPluginManager().registerEvents(this, this);
         config.enable();
-        config.advertiserdb();//Yup i am an idiot.
+        //config.advertiserdb();//Yup i am an idiot.
         WordGroups.seperator();
         getCommand("language").setExecutor(new Commands());
         getLogger().info("Words on custom: " + WordGroups.words);
         getLogger().info("Messages on custom: "+WordGroups.messages);
         getLogger().info("Commands on custom: "+WordGroups.commandexec);
-        //getLogger().info("Advertiser debug: "+config.advertiserdb().toString());//cool commands can be made :D
+        getLogger().info("Advertiser Raw: "+config.addresses);
+        //getLogger().info("Advertiser Check: "+);
         getLogger().info("[MilspecLang] has been Enabled!");
     }
 
@@ -77,12 +78,12 @@ public class MilspecLang extends JavaPlugin implements Listener {
                     String punish = pun.replaceAll(playerconf, ev.getPlayer().getName());
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), punish);
                     String K = ev.getPlayer().getName();
-                    String V = addr;
-                    config.addAd(K,V);//Implemented for future use.
+
+                    config.addAd(K,1);//Implemented for future use.
                 }
                 //config.addresses.add(addr);
                 ev.setCancelled(true);
-                getLogger().info("Player: "+ev.getPlayer()+" Advertising Server: "+addr);
+                getLogger().info("Player: "+ev.getPlayer().getName()+" Advertising Server: "+addr);
             }
         }
         List<String> forbiddenlist = Wordcatch.isforbidden(ev.getMessage());
@@ -94,7 +95,6 @@ public class MilspecLang extends JavaPlugin implements Listener {
                 String playerconf = "<player>";
                 String commandplay = config.getCommand(id).replaceAll(playerconf, player).replace("]", "");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandplay);
-                ev.getPlayer().sendMessage(config.getMessage(id));
                 ev.setMessage(config.chatmessage());
                 //sends message in configs
                 //ev.setCancelled(true);

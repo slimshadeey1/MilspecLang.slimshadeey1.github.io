@@ -8,6 +8,7 @@ import java.net.*;
 import java.util.*;
 import java.util.List;
 
+import org.bukkit.*;
 import org.bukkit.configuration.file.*;
 import org.bukkit.plugin.Plugin;
 
@@ -22,37 +23,61 @@ public class config {
     static List<String> apunishment = files.getStringList("AdvertiserPunishment");
     static List<String> addresses = files.getStringList("Advertisers");
     public static final String IPV4_REGEX = "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$";
-    public static boolean addAd(String a,String b){
-            addresses.add(a.trim() + "-" + b.trim());
-        advertiserdb();
+    static Map<String, Integer> advertiserdbin = new HashMap<>();
+
+    public static boolean setad(String a, Integer b){
+        if(advertiserdbin.containsKey(a.trim())) {
+            addresses.remove(a.trim() + "-" + advertiserdbin.get(a.trim()));
+            advertiserdbin.remove(a.trim());
+            addresses.add(a.trim()+"-"+b);
+            advertiserdbin.put(a.trim(), b);
+            files.set("Advertisers", addresses);
+            MIG.saveConfig();
+            return true;
+        }
+        return false;
+    }
+    public static boolean removead(String a){
+        if(advertiserdbin.containsKey(a.trim())) {
+            addresses.remove(a.trim() + "-" + advertiserdbin.get(a.trim()));
+            advertiserdbin.remove(a.trim());
+            files.set("Advertisers", addresses);
+            MIG.saveConfig();
+            return true;
+        }
+        return false;
+    }
+    public static boolean addAd(String a,Integer b){
+        addresses.add(a.trim() + "-" + b);
+        files.set("Advertisers", addresses);
+        MIG.saveConfig();
+        if(advertiserdbin.containsKey(a.trim())) {
+            Integer value = advertiserdbin.get(a.trim()) + b;
+            advertiserdbin.remove(a.trim());
+            advertiserdbin.put(a.trim(),value);
+            return true;
+        }
+        advertiserdbin.put(a,b);
         return true;
     }
-    public static Map<String, List<String>> advertiserdb() {
-        Map<String, List<String>> advertiserdbin = new AbstractMap<String, List<String>>() {
-            @Override
-            public Set<Entry<String, List<String>>> entrySet() {
-                return null;
-            }
-        };
-        for (String s: addresses) {
-            String key = s.split("-")[0];
-            List<String> value = null;
-            if (advertiserdbin.containsKey(key)) {
-                for (String z:advertiserdbin.get(key)){
-                    value.add(z);
-                }
-                value.add(s.split("-")[1]);//made new
+    public static void advertiserup(){
+        for(String a:addresses){
+            String key = a.split("-")[0].trim();
+            Integer number = Integer.parseInt(a.split("-")[1]);
+            if(advertiserdbin.containsKey(key)){
+                Integer value = advertiserdbin.get(key)+number;
                 advertiserdbin.remove(key);
-                advertiserdbin.put(key, value);
-            } else {
-                value.add(s.split("-")[1]);//made new
-                advertiserdbin.put(key, value);
+                advertiserdbin.put(key,value);
+
+            }else{
+                advertiserdbin.put(key,number);
             }
         }
-        return advertiserdbin;
     }
     public static void enable() {
+        advertiserup();
         files.options().copyDefaults(true);
+        //Bukkit.getLogger().info("Advertiser debug: ");//cool commands can be made :D
         // Create group files
         //save files
         MIG.saveConfig();
@@ -163,6 +188,13 @@ public class config {
     }
     public static String getWord(Integer i) {
         return WordGroups.words.get(i);
+    }
+    public static List<String> adnames() {
+        List<String> names = new ArrayList<String>();
+        for (String raw:config.addresses) {
+            names.add(raw.split("-")[0].trim());
+        }
+        return names;
     }
     public static boolean commandenabled() {
         return command;

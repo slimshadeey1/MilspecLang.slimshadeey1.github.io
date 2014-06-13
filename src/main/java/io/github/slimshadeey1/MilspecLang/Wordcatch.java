@@ -1,5 +1,7 @@
 package io.github.slimshadeey1.MilspecLang;
 
+import org.apache.commons.validator.routines.*;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -85,6 +87,15 @@ public class Wordcatch {
         if(forbiddenlist.isEmpty())return null;
         return forbiddenlist;
     }
+    public static List<String> checkaddress(String s){
+        List<String> addresslist = new ArrayList<String>();
+        for (String address: s.split(" ")){
+            if (InetAddressValidator.getInstance().isValid(address)){
+                addresslist.add(address);
+            }
+        }
+        return addresslist;
+    }
     public static List<String> checkswear(List<String> finalwords){
         List<String> swearlist = new ArrayList<String>();
         for(String exception: config.getexceptionlist()){ //checking for exceptions
@@ -116,5 +127,5 @@ public class Wordcatch {
     public static List<String> isforbidden(String s) {
         return checkforbidden(aggresivemode(s));
     }
-
+    public static List<String> isipaddress(String s) { return checkaddress(s);}
 }

@@ -1,5 +1,3 @@
-aggressive: true
-DisableSwearing: false
 commandChecking: true
 swears:
 - fuck
@@ -14,3 +12,7 @@ exception:
 ChatMessage: I <3 MilSpec!
 CustomWordActions:
 - lag-Saying lag is annoying-kick <player>
+AdvertiserPunishment:
+- broadcast I hate you <player>
+Advertisers:
+- debug-8.8.8.8

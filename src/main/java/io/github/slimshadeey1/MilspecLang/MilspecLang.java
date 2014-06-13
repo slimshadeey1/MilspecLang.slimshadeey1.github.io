@@ -1,9 +1,13 @@
 package io.github.slimshadeey1.MilspecLang;
 
+import javafx.beans.property.*;
+import org.apache.commons.validator.routines.*;
 import org.bukkit.*;
 
+import java.beans.*;
 import java.io.*;
-import java.util.List;
+import java.net.*;
+import java.util.*;
 
 import org.bukkit.configuration.file.*;
 import org.bukkit.entity.*;
@@ -17,6 +21,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import sun.security.x509.*;
+
+import javax.lang.model.element.*;
 
 /**
  * Created by Ben Byers on 6/8/2014.
@@ -32,16 +39,18 @@ public class MilspecLang extends JavaPlugin implements Listener {
         plugin = this; //DONT PUT FUCKIN SHIT BEFORE THIS
         getServer().getPluginManager().registerEvents(this, this);
         config.enable();
+        config.advertiserdb();//Yup i am an idiot.
         WordGroups.seperator();
         getCommand("language").setExecutor(new Commands());
-        getLogger().info("Words on custom: "+WordGroups.words);
+        getLogger().info("Words on custom: " + WordGroups.words);
         getLogger().info("Messages on custom: "+WordGroups.messages);
         getLogger().info("Commands on custom: "+WordGroups.commandexec);
-
+        //getLogger().info("Advertiser debug: "+config.advertiserdb().toString());//cool commands can be made :D
         getLogger().info("[MilspecLang] has been Enabled!");
     }
 
     // lowest event priority to stop lagg
+
     @EventHandler(priority = EventPriority.NORMAL) //This is the standard chat checker
     public void chat(final AsyncPlayerChatEvent ev) {
         if (ev.isCancelled()) return;
@@ -57,6 +66,23 @@ public class MilspecLang extends JavaPlugin implements Listener {
                 ev.setMessage(config.chatmessage());
                 //ev.getPlayer().sendMessage(config.getWords().toString());
                 //ev.getPlayer().sendMessage(config.getCustomset().toString());
+            }
+        }
+        List<String> Advertiser = Wordcatch.isipaddress(ev.getMessage());
+        if (Advertiser != null) {
+            for (String addr : Advertiser) {
+                getServer().broadcastMessage(ChatColor.RED + "Advertiser detected! Muting and Kicking " + ChatColor.UNDERLINE + ev.getPlayer().getName());
+                for (String pun : config.getPunishment()) {
+                    String playerconf = "<player>";
+                    String punish = pun.replaceAll(playerconf, ev.getPlayer().getName());
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), punish);
+                    String K = ev.getPlayer().getName();
+                    String V = addr;
+                    config.addAd(K,V);//Implemented for future use.
+                }
+                //config.addresses.add(addr);
+                ev.setCancelled(true);
+                getLogger().info("Player: "+ev.getPlayer()+" Advertising Server: "+addr);
             }
         }
         List<String> forbiddenlist = Wordcatch.isforbidden(ev.getMessage());

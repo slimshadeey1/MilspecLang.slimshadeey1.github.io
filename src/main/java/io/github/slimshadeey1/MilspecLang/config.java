@@ -4,6 +4,7 @@ package io.github.slimshadeey1.MilspecLang;
  * Created by Ben Byers on 6/9/2014.
  */
 import java.awt.*;
+import java.net.*;
 import java.util.*;
 import java.util.List;
 
@@ -16,11 +17,40 @@ public class config {
     static List<String> swears = files.getStringList("swears");
     static List<String> customset = files.getStringList("CustomWordActions");
     static List<String> exceptions = files.getStringList("exception");
-    static Boolean disabled = files.getBoolean("DisableSwearing");
     static Boolean command = files.getBoolean("commandChecking");
     static String message = files.getString("ChatMessage");
-
-
+    static List<String> apunishment = files.getStringList("AdvertiserPunishment");
+    static List<String> addresses = files.getStringList("Advertisers");
+    public static final String IPV4_REGEX = "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$";
+    public static boolean addAd(String a,String b){
+            addresses.add(a.trim() + "-" + b.trim());
+        advertiserdb();
+        return true;
+    }
+    public static Map<String, List<String>> advertiserdb() {
+        Map<String, List<String>> advertiserdbin = new AbstractMap<String, List<String>>() {
+            @Override
+            public Set<Entry<String, List<String>>> entrySet() {
+                return null;
+            }
+        };
+        for (String s: addresses) {
+            String key = s.split("-")[0];
+            List<String> value = null;
+            if (advertiserdbin.containsKey(key)) {
+                for (String z:advertiserdbin.get(key)){
+                    value.add(z);
+                }
+                value.add(s.split("-")[1]);//made new
+                advertiserdbin.remove(key);
+                advertiserdbin.put(key, value);
+            } else {
+                value.add(s.split("-")[1]);//made new
+                advertiserdbin.put(key, value);
+            }
+        }
+        return advertiserdbin;
+    }
     public static void enable() {
         files.options().copyDefaults(true);
         // Create group files
@@ -43,25 +73,6 @@ public class config {
         MIG.saveConfig();
         return true;
     }
-
-//    public static boolean editcustommessage(Integer id, String newword){
-//        WordGroups.messages.set(id, newword);
-//        String edited = getWord(id)+"-"+getMessage(id)+"-"+getCommand(id);
-//        customset.add(id, edited);
-//        files.set("swears", swears);
-//        MIG.saveConfig();
-//        WordGroups.seperator();
-//        return true;
-//    }
-//    public static boolean editcustomcommand(Integer id, String newword){
-//        WordGroups.commandexec.set(id, newword);
-//        String edited = getWord(id)+"-"+getMessage(id)+"-"+getCommand(id);
-//        customset.add(id, edited);
-//        files.set("swears", swears);
-//        MIG.saveConfig();
-//        WordGroups.seperator();
-//        return true;
-//    }
     public static boolean addcustomset(String word, String message, String command) {
         for (String s : getWords()) {
             if (word.equalsIgnoreCase(s)) {
@@ -134,14 +145,12 @@ public class config {
     public static List<String> getCustomset() {
         return customset;
     }
-
+    public static List<String> getPunishment() {
+        return apunishment;
+    }
 
     public static String chatmessage() {
         return message;
-    }
-
-    public static boolean swearisdisabled() {
-        return disabled;
     }
     public static List<String> getWords() {
         return WordGroups.words;

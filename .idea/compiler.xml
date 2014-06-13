@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="MilspecLang" />
         <module name="Mod Item Organizer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="MilspecLang" target="1.7" />
       <module name="Mod Item Organizer" target="1.7" />
     </bytecodeTargetLevel>
   </component>

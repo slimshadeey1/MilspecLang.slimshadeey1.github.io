@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="Maven: commons-validator:commons-validator:1.4.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/commons-validator/commons-validator/1.4.0/commons-validator-1.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="http://commons.apache.org/proper/commons-validator/apidocs/index.html" />
+      <root url="http://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/routines/package-summary.html#package_description" />
+      <root url="http://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/package-summary.html#package_description" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-validator/commons-validator/1.4.0/commons-validator-1.4.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../Classes/commons-validator-1.4.0-src/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../Classes/commons-validator-1.4.0-src/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../Classes/commons-validator-1.4.0-src/src/example" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-validator/commons-validator/1.4.0/commons-validator-1.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

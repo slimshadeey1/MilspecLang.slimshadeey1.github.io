@@ -141,6 +141,7 @@ public class Commands  implements CommandExecutor {
                             return true;
                         }
                     }
+
                     if(args[0].equalsIgnoreCase("elist")){
                         if(args.length == 1){
                             if(sender.hasPermission("language.admin")){

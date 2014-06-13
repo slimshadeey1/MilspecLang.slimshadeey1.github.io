@@ -42,10 +42,10 @@ public class MilspecLang extends JavaPlugin implements Listener {
         //config.advertiserdb();//Yup i am an idiot.
         WordGroups.seperator();
         getCommand("language").setExecutor(new Commands());
-        getLogger().info("Words on custom: " + WordGroups.words);
-        getLogger().info("Messages on custom: "+WordGroups.messages);
-        getLogger().info("Commands on custom: "+WordGroups.commandexec);
-        getLogger().info("Advertiser Raw: "+config.addresses);
+        //getLogger().info("Words on custom: " + WordGroups.words);
+        //getLogger().info("Messages on custom: "+WordGroups.messages);
+        //getLogger().info("Commands on custom: "+WordGroups.commandexec);
+        //getLogger().info("Advertiser Raw: "+config.addresses);
         //getLogger().info("Advertiser Check: "+);
         getLogger().info("[MilspecLang] has been Enabled!");
     }

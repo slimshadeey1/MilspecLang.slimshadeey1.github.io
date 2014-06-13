@@ -3,12 +3,9 @@ package io.github.slimshadeey1.MilspecLang;
 /**
  * Created by Ben Byers on 6/9/2014.
  */
-import java.awt.*;
-import java.net.*;
 import java.util.*;
 import java.util.List;
 
-import org.bukkit.*;
 import org.bukkit.configuration.file.*;
 import org.bukkit.plugin.Plugin;
 
@@ -22,7 +19,6 @@ public class config {
     static String message = files.getString("ChatMessage");
     static List<String> apunishment = files.getStringList("AdvertiserPunishment");
     static List<String> addresses = files.getStringList("Advertisers");
-    public static final String IPV4_REGEX = "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$";
     static Map<String, Integer> advertiserdbin = new HashMap<>();
 
     public static boolean setad(String a, Integer b){

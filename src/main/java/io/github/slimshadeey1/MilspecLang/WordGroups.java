@@ -1,8 +1,5 @@
 package io.github.slimshadeey1.MilspecLang;
 
-import org.bukkit.configuration.file.*;
-import org.bukkit.plugin.*;
-
 import java.util.*;
 
 /**
@@ -13,7 +10,6 @@ public class WordGroups {
     public static ArrayList<String> words = new ArrayList();
     public static ArrayList<String> messages = new ArrayList();
     public static ArrayList<String> commandexec = new ArrayList();
-    //public static ArrayList<String> debg = ArrayList(config.customset.toString());
 
     public static List<String> seperator() {
         List<String> debug = new ArrayList<>();

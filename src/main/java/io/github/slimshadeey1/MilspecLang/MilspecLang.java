@@ -1,29 +1,16 @@
 package io.github.slimshadeey1.MilspecLang;
 
-import javafx.beans.property.*;
-import org.apache.commons.validator.routines.*;
 import org.bukkit.*;
 
-import java.beans.*;
-import java.io.*;
-import java.net.*;
 import java.util.*;
 
-import org.bukkit.configuration.file.*;
-import org.bukkit.entity.*;
-import org.bukkit.inventory.*;
 import org.bukkit.plugin.*;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import sun.security.x509.*;
-
-import javax.lang.model.element.*;
 
 /**
  * Created by Ben Byers on 6/8/2014.

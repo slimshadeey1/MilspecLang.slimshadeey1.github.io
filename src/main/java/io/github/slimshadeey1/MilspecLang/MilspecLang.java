@@ -76,7 +76,7 @@ public class MilspecLang extends JavaPlugin implements Listener {
                 for (String pun : config.getPunishment()) {
                     String playerconf = "<player>";
                     String punish = pun.replaceAll(playerconf, ev.getPlayer().getName());
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), punish);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), punish.trim());
                     String K = ev.getPlayer().getName();
 
                     config.addAd(K,1);//Implemented for future use.

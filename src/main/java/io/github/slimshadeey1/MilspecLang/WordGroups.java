@@ -10,7 +10,7 @@ public class WordGroups {
     public static ArrayList<String> words = new ArrayList();
     public static ArrayList<String> messages = new ArrayList();
     public static ArrayList<String> commandexec = new ArrayList();
-
+    public static Map<Integer,List<String>> custcommand = new HashMap<>();
     public static List<String> seperator() {
         List<String> debug = new ArrayList<>();
             //String[] parts = config.getCustomset().get(i).split("-")[0];
@@ -21,7 +21,6 @@ public class WordGroups {
             words.add(config.getCustomset().get(i).split("-")[0]);
             messages.add(config.getCustomset().get(i).split("-")[1]);
             commandexec.add(config.getCustomset().get(i).split("-")[2]);
-
         }
     return debug;
     }

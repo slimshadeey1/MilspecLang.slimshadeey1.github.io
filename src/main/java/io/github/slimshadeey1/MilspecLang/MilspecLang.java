@@ -60,7 +60,7 @@ public class MilspecLang extends JavaPlugin implements Listener {
         if (Advertiser != null) {
             for (String addr : Advertiser) {
                 getServer().broadcastMessage(ChatColor.RED + "Advertiser detected! Muting and Kicking " + ChatColor.UNDERLINE + ev.getPlayer().getName());
-                for (String pun : config.getPunishment()) {
+                for (String pun : config.getPunishmentad(ev.getPlayer().getName())) {
                     String playerconf = "<player>";
                     String punish = pun.replaceAll(playerconf, ev.getPlayer().getName());
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), punish.trim());

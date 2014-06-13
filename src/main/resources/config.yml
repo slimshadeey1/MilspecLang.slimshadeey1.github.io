@@ -13,7 +13,7 @@ ChatMessage: I <3 MilSpec!
 CustomWordActions:
 - lag-Saying lag is annoying-kick <player>
 AdvertiserPunishment:
-- kick <player> No advertising on the server!
+- kick <player> No advertising on the server!@1
 Advertisers:
 - debug-3
 - test-7

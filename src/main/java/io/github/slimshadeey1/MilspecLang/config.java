@@ -56,6 +56,23 @@ public class config {
         advertiserdbin.put(a,b);
         return true;
     }
+
+    public static List<String> getPunishmentad(String name) {
+        //command@number
+        Integer number = advertiserdbin.get(name);
+        List<String> com = new ArrayList<String>();
+        List<String> punc = new ArrayList<String>();
+        List<Integer> punn = new ArrayList<Integer>();
+        for(String n:apunishment) {
+            punc.add(n.split("@")[0]);
+            punn.add(Integer.parseInt(n.split("@")[1]));
+        }
+        for(Integer i = 0; i <= punc.size();i++){
+            Integer loc = punn.indexOf(number);
+            com.add(punc.get(loc));
+        }
+        return com;
+    }
     public static void advertiserup(){
         for(String a:addresses){
             String key = a.split("-")[0].trim();
@@ -79,10 +96,6 @@ public class config {
         MIG.saveConfig();
     }
 
-    public void get() {
-
-    }
-
     public static boolean addswear(String swear) {
         for (String s : swears) {
             if (swear.equalsIgnoreCase(s)) {
@@ -94,6 +107,7 @@ public class config {
         MIG.saveConfig();
         return true;
     }
+
     public static boolean addcustomset(String word, String message, String command) {
         for (String s : getWords()) {
             if (word.equalsIgnoreCase(s)) {
@@ -109,6 +123,7 @@ public class config {
         WordGroups.seperator();
         return true;
     }
+
     public static boolean removecustomset(Integer id) {
         WordGroups.words.remove(WordGroups.words.get(id));
         WordGroups.messages.remove(WordGroups.messages.get(id));
@@ -119,6 +134,7 @@ public class config {
                 WordGroups.seperator();
                 return true;
     }
+
     public static boolean addexempt(String exempt) {
         for (String s : exceptions) {
             if (exempt.equalsIgnoreCase(s)) {
@@ -130,7 +146,6 @@ public class config {
         MIG.saveConfig();
         return true;
     }
-
 
     public static boolean removeswear(String swear) {
         for (String s : swears) {
@@ -163,9 +178,11 @@ public class config {
     public static List<String> getexceptionlist() {
         return exceptions;
     }
+
     public static List<String> getCustomset() {
         return customset;
     }
+
     public static List<String> getPunishment() {
         return apunishment;
     }
@@ -173,18 +190,23 @@ public class config {
     public static String chatmessage() {
         return message;
     }
+
     public static List<String> getWords() {
         return WordGroups.words;
     }
+
     public static String getMessage(Integer i) {
         return WordGroups.messages.get(i);
     }
+
     public static String getCommand(Integer i) {
         return WordGroups.commandexec.get(i);
     }
+
     public static String getWord(Integer i) {
         return WordGroups.words.get(i);
     }
+
     public static List<String> adnames() {
         List<String> names = new ArrayList<String>();
         for (String raw:config.addresses) {
@@ -192,7 +214,12 @@ public class config {
         }
         return names;
     }
+
     public static boolean commandenabled() {
         return command;
+    }
+
+    public void get() {
+
     }
 }

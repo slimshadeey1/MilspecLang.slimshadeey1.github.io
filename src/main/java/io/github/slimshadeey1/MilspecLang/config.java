@@ -68,8 +68,10 @@ public class config {
             punn.add(Integer.parseInt(n.split("@")[1]));
         }
         for(Integer i = 0; i <= punc.size();i++){
-            Integer loc = punn.indexOf(number);
-            com.add(punc.get(loc));
+            if(number <= punc.size()) {
+                Integer loc = punn.indexOf(number);
+                com.add(punc.get(loc));
+            }
         }
         return com;
     }

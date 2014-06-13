@@ -59,18 +59,23 @@ public class MilspecLang extends JavaPlugin implements Listener {
         List<String> Advertiser = Wordcatch.isipaddress(ev.getMessage());
         if (Advertiser != null) {
             for (String addr : Advertiser) {
-                getServer().broadcastMessage(ChatColor.RED + "Advertiser detected! Muting and Kicking " + ChatColor.UNDERLINE + ev.getPlayer().getName());
+                getLogger().info("Player: "+ev.getPlayer().getName()+" Advertising Server: "+addr);
+                getServer().broadcastMessage(ChatColor.RED + "Advertiser detected! Player: " + ChatColor.UNDERLINE + ev.getPlayer().getName());
+                String K = ev.getPlayer().getName();
+                config.addAd(K,1);//Implemented for future use.
                 for (String pun : config.getPunishmentad(ev.getPlayer().getName())) {
                     String playerconf = "<player>";
-                    String punish = pun.replaceAll(playerconf, ev.getPlayer().getName());
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), punish.trim());
-                    String K = ev.getPlayer().getName();
+                    String punish = "";
+                    if(!(pun.isEmpty())&&((pun.contains("<player>")))) {
+                        punish = pun.replaceAll(playerconf, ev.getPlayer().getName());
+                    }
+                    if (!(punish.isEmpty()|pun.isEmpty())) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), punish.trim());
+                    }
 
-                    config.addAd(K,1);//Implemented for future use.
                 }
                 //config.addresses.add(addr);
                 ev.setCancelled(true);
-                getLogger().info("Player: "+ev.getPlayer().getName()+" Advertising Server: "+addr);
             }
         }
         List<String> forbiddenlist = Wordcatch.isforbidden(ev.getMessage());

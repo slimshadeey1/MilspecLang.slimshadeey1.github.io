@@ -26,7 +26,6 @@ public class MilspecLang extends JavaPlugin implements Listener {
         plugin = this; //DONT PUT FUCKIN SHIT BEFORE THIS
         getServer().getPluginManager().registerEvents(this, this);
         config.enable();
-        //config.advertiserdb();//Yup i am an idiot.
         WordGroups.seperator();
         getCommand("language").setExecutor(new Commands());
         //getLogger().info("Words on custom: " + WordGroups.words);
@@ -49,12 +48,7 @@ public class MilspecLang extends JavaPlugin implements Listener {
         if (swearlist != null) {
             for (String swear : swearlist) {
                 ev.getPlayer().sendMessage(ChatColor.RED+"NO BADWORDS");
-                // message contains a swear
-                // cancel event
-
                 ev.setMessage(config.chatmessage());
-                //ev.getPlayer().sendMessage(config.getWords().toString());
-                //ev.getPlayer().sendMessage(config.getCustomset().toString());
             }
         }
         List<String> Advertiser = Wordcatch.isipaddress(ev.getMessage());
@@ -87,19 +81,6 @@ public class MilspecLang extends JavaPlugin implements Listener {
                 String player = ev.getPlayer().getName().replace("]", "");
                 String playerconf = "<player>";
                 String commandplay = config.getCommand(id).replaceAll(playerconf, player).replace("]", "");
-//                List<String> command = new ArrayList<>();
-//                List<Integer> ident = new ArrayList<>();
-//                String[] rawcom = commandplay.split(";");
-//                for (Integer i=0; i<=rawcom.length; i++){
-//                    command.add(rawcom[i].split("@")[0]);
-//                    ident.add(Integer.parseInt(rawcom[i].split("@")[0]));
-//                }
-//                if(!(command.get(ident.indexOf(count)).isEmpty())) {
-//                    String comand = command.get(ident.indexOf(count));
-//                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), comand);
-//                }else{
-//                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.get(1));
-//                }
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandplay);
                 ev.setMessage(config.chatmessage());
             }

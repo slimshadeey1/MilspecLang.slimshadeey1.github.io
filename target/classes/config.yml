@@ -1,0 +1,19 @@
+commandChecking: true
+swears:
+- fuck
+- shit
+- crap
+- wank
+- cunt
+- crap
+- ass
+exception:
+- glass
+ChatMessage: I <3 MilSpec!
+CustomWordActions:
+- lag-Saying lag is annoying-kick <player>
+AdvertiserPunishment:
+- kick <player> No advertising on the server!@1
+Advertisers:
+- debug-3
+- test-7

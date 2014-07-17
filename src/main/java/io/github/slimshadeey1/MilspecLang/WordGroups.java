@@ -13,10 +13,6 @@ public class WordGroups {
     public static Map<Integer,List<String>> custcommand = new HashMap<>();
     public static List<String> seperator() {
         List<String> debug = new ArrayList<>();
-            //String[] parts = config.getCustomset().get(i).split("-")[0];
-            //words.add(config.getCustomset().get(i).split("-")[0]);
-            //messages.add(config.getCustomset().get(i).split("-")[1]);
-            //commandexec.add(config.getCustomset().get(i).split("-")[2]);
         for(int i = 0; i <= config.getCustomset().size()-1; i++) { //config.customset.toString().length(
             words.add(config.getCustomset().get(i).split("-")[0]);
             messages.add(config.getCustomset().get(i).split("-")[1]);

@@ -1,0 +1,13 @@
+name: MilspecLang
+main: io.github.slimshadeey1.MilspecLang.MilspecLang
+version: 1
+commands:
+   language:
+      description: Main command for Milspec Language filter
+      usage: /language
+Permissions:
+  language.admin:
+    default: op
+  language.exempt:
+    default: op
+
